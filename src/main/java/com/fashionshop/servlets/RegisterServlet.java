@@ -13,6 +13,7 @@ import com.fashionshop.entities.Message;
 import com.fashionshop.entities.User;
 import com.fashionshop.helper.ConnectionProvider;
 import com.fashionshop.helper.MailMessenger;
+import com.fashionshop.helper.LogData;
 
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -51,10 +52,12 @@ public class RegisterServlet extends HttpServlet {
 			}
 			session.setAttribute("message", message);
 			response.sendRedirect("register.jsp");
+			LogData.saveLog("RegisterServlet", request, message.getMessage(), "");
 			return;
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			LogData.saveLog("RegisterServlet", request, "", e.getMessage());
 		}
 
 	}

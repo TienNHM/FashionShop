@@ -12,6 +12,7 @@ import com.fashionshop.dao.CartDao;
 import com.fashionshop.dao.ProductDao;
 import com.fashionshop.entities.Message;
 import com.fashionshop.helper.ConnectionProvider;
+import com.fashionshop.helper.LogData;
 
 public class CartOperationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,11 +39,13 @@ public class CartOperationServlet extends HttpServlet {
 				cartDao.updateQuantity(cid, qty + 1);
 				// updating(decreasing) quantity of product in database
 				productDao.updateQuantity(pid, productDao.getProductQuantityById(pid) - 1);
+				LogData.saveLog("CartOperationServlet", request, "Product quantity is increased!", "");
 				response.sendRedirect("cart.jsp");
 
 			} else {
 				HttpSession session = request.getSession();
 				Message message = new Message("Product out of stock!", "error", "alert-danger");
+				LogData.saveLog("CartOperationServlet", request, "", "Product out of stock!");
 				session.setAttribute("message", message);
 				response.sendRedirect("cart.jsp");
 			}
@@ -52,6 +55,7 @@ public class CartOperationServlet extends HttpServlet {
 
 			// updating(increasing) quantity of product in database
 			productDao.updateQuantity(pid, productDao.getProductQuantityById(pid) + 1);
+			LogData.saveLog("CartOperationServlet", request, "Product quantity is decreased!", "");
 			response.sendRedirect("cart.jsp");
 
 		} else if (opt == 3) {
@@ -63,6 +67,7 @@ public class CartOperationServlet extends HttpServlet {
 			// updating quantity of product in database
 			// adding all the product qty back to database
 			productDao.updateQuantity(pid, productDao.getProductQuantityById(pid) + qty);
+			LogData.saveLog("CartOperationServlet", request, "Product removed from cart!", "");
 			response.sendRedirect("cart.jsp");
 		}
 

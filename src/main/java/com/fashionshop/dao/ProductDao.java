@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.fashionshop.entities.Product;
+import com.fashionshop.helper.LogData;
 
 public class ProductDao {
 	private Connection con;
@@ -32,9 +33,10 @@ public class ProductDao {
 			psmt.executeUpdate();
 			flag = true;
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao saveProduct", null, "", e.getMessage());
 			e.printStackTrace();
 		}
-
+		LogData.saveLog("ProductDao saveProduct", null, "Product saved successfully", "");
 		return flag;
 	}
 
@@ -59,8 +61,10 @@ public class ProductDao {
 				list.add(product);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao getAllProducts", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao getAllProducts", null, "All products fetched successfully", "");
 		return list;
 	}
 
@@ -85,8 +89,10 @@ public class ProductDao {
 				list.add(product);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao getAllLatestProducts", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao getAllLatestProducts", null, "All latest products fetched successfully", "");
 		return list;
 	}
 
@@ -109,8 +115,10 @@ public class ProductDao {
 			product.setCategoryId(rs.getInt("cid"));
 
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao getProductsByProductId", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao getProductsByProductId", null, "Product fetched successfully", "");
 		return product;
 	}
 
@@ -135,8 +143,10 @@ public class ProductDao {
 				list.add(product);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao getAllProductsByCategoryId", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao getAllProductsByCategoryId", null, "All products fetched successfully", "");
 		return list;
 	}
 
@@ -164,8 +174,10 @@ public class ProductDao {
 				list.add(product);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao getAllProductsBySearchKey: " + search, null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao getAllProductsBySearchKey: " + search, null, "All products fetched successfully", "");
 		return list;
 	}
 
@@ -189,8 +201,10 @@ public class ProductDao {
 				list.add(product);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao getDiscountedProducts", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao getDiscountedProducts", null, "All discounted products fetched successfully", "");
 		return list;
 	}
 
@@ -209,9 +223,10 @@ public class ProductDao {
 
 			psmt.executeUpdate();
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao updateProduct", null, "", e.getMessage());
 			e.printStackTrace();
 		}
-
+		LogData.saveLog("ProductDao updateProduct", null, "Product updated successfully", "");
 	}
 
 	public void updateQuantity(int id, int qty) {
@@ -224,8 +239,10 @@ public class ProductDao {
 			psmt.executeUpdate();
 
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao updateQuantity", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao updateQuantity", null, "Product quantity updated successfully", "");
 	}
 
 	public void deleteProduct(int pid) {
@@ -236,8 +253,10 @@ public class ProductDao {
 			psmt.executeUpdate();
 
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao deleteProduct", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao deleteProduct", null, "Product deleted successfully", "");
 	}
 
 	public int productCount() {
@@ -249,8 +268,10 @@ public class ProductDao {
 			rs.next();
 			count = rs.getInt(1);
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao productCount", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao productCount", null, "Product count fetched successfully", "");
 		return count;
 	}
 
@@ -268,8 +289,10 @@ public class ProductDao {
 			float discountPrice = (int) ((discount / 100.0) * orgPrice);
 			price = orgPrice - discountPrice;
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao getProductPriceById", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao getProductPriceById", null, "Product price fetched successfully", "");
 		return price;
 	}
 
@@ -284,8 +307,10 @@ public class ProductDao {
 			qty = rs.getInt(1);
 
 		} catch (Exception e) {
+			LogData.saveLog("ProductDao getProductQuantityById", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("ProductDao getProductQuantityById", null, "Product quantity fetched successfully", "");
 		return qty;
 	}
 }

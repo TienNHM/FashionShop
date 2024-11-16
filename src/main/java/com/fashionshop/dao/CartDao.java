@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fashionshop.entities.Cart;
+import com.fashionshop.helper.LogData;
 
 public class CartDao {
 
@@ -30,8 +31,10 @@ public class CartDao {
 			flag = true;
 
 		} catch (Exception e) {
+			LogData.saveLog("CartDao addToCart", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao addToCart", null, "Product added to cart successfully", "");
 		return flag;
 	}
 
@@ -53,8 +56,10 @@ public class CartDao {
 				list.add(cart);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("CartDao getCartListByUserId", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao getCartListByUserId", null, "Cart list fetched successfully", "");
 		return list;
 	}
 
@@ -71,8 +76,10 @@ public class CartDao {
 				qty = rs.getInt("quantity");
 			}
 		} catch (Exception e) {
+			LogData.saveLog("CartDao getQuantity", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao getQuantity", null, "Quantity fetched successfully", "");
 		return qty;
 	}
 
@@ -87,8 +94,10 @@ public class CartDao {
 				qty = rs.getInt("quantity");
 			}
 		} catch (Exception e) {
+			LogData.saveLog("CartDao getQuantityById", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao getQuantityById", null, "Quantity fetched successfully", "");
 		return qty;
 	}
 
@@ -103,8 +112,10 @@ public class CartDao {
 			psmt.executeUpdate();
 
 		} catch (Exception e) {
+			LogData.saveLog("CartDao updateQuantity", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao updateQuantity", null, "Quantity updated successfully", "");
 	}
 
 	public void removeProduct(int cid) {
@@ -115,8 +126,10 @@ public class CartDao {
 
 			psmt.executeUpdate();
 		} catch (Exception e) {
+			LogData.saveLog("CartDao removeProduct", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao removeProduct", null, "Product removed from cart successfully", "");
 	}
 
 	public void removeAllProduct() {
@@ -125,8 +138,10 @@ public class CartDao {
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.executeUpdate();
 		} catch (Exception e) {
+			LogData.saveLog("CartDao removeAllProduct", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao removeAllProduct", null, "All products removed from cart successfully", "");
 	}
 
 	public int getIdByUserIdAndProductId(int uid, int pid) {
@@ -142,8 +157,10 @@ public class CartDao {
 				cid = rs.getInt("id");
 			}
 		} catch (Exception e) {
+			LogData.saveLog("CartDao getIdByUserIdAndProductId", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao getIdByUserIdAndProductId", null, "Cart id fetched successfully", "");
 		return cid;
 	}
 
@@ -158,8 +175,10 @@ public class CartDao {
 			rs.next();
 			count = rs.getInt(1);
 		} catch (Exception e) {
+			LogData.saveLog("CartDao getCartCountByUserId", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao getCartCountByUserId", null, "Cart count fetched successfully", "");
 		return count;
 	}
 
@@ -174,8 +193,10 @@ public class CartDao {
 			pid = rs.getInt(1);
 			
 		} catch (Exception e) {
+			LogData.saveLog("CartDao getProductId", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CartDao getProductId", null, "Product id fetched successfully", "");
 		return pid;
 	}
 }

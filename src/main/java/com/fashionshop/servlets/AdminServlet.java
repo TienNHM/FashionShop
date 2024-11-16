@@ -12,6 +12,7 @@ import com.fashionshop.dao.AdminDao;
 import com.fashionshop.entities.Admin;
 import com.fashionshop.entities.Message;
 import com.fashionshop.helper.ConnectionProvider;
+import com.fashionshop.helper.LogData;
 
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -55,6 +56,8 @@ public class AdminServlet extends HttpServlet {
 				message = new Message("Sorry! Something went wrong", "error", "alert-danger");
 			}
 		}
+
+		LogData.saveLog("AdminServlet", request, message.getMessage(), "");
 		session.setAttribute("message", message);
 		response.sendRedirect("display_admin.jsp");
 	}

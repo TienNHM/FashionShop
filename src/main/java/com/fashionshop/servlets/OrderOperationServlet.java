@@ -22,6 +22,7 @@ import com.fashionshop.entities.User;
 import com.fashionshop.helper.ConnectionProvider;
 import com.fashionshop.helper.MailMessenger;
 import com.fashionshop.helper.OrderIdGenerator;
+import com.fashionshop.helper.LogData;
 
 public class OrderOperationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -70,6 +71,7 @@ public class OrderOperationServlet extends HttpServlet {
 				cartDao.removeAllProduct();
 
 			} catch (Exception e) {
+				LogData.saveLog("OrderOperationServlet", request, "", e.getMessage());
 				e.printStackTrace();
 			}
 		} else if (from.trim().equals("buy")) {
@@ -99,10 +101,12 @@ public class OrderOperationServlet extends HttpServlet {
 				session.removeAttribute("pid");
 			} catch (Exception e) {
 				e.printStackTrace();
+				LogData.saveLog("OrderOperationServlet", request, "", e.getMessage());
 			}
 		}
 		session.setAttribute("order", "success");
 		MailMessenger.successfullyOrderPlaced(user.getUserName(), user.getUserEmail(), orderId, new Date().toString());
+		LogData.saveLog("OrderOperationServlet", request, "Order placed successfully", "");
 		response.sendRedirect("index.jsp");
 	}
 

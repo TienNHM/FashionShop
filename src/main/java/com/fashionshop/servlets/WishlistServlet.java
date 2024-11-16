@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fashionshop.dao.WishlistDao;
 import com.fashionshop.entities.Wishlist;
 import com.fashionshop.helper.ConnectionProvider;
+import com.fashionshop.helper.LogData;
 
 public class WishlistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,12 +31,15 @@ public class WishlistServlet extends HttpServlet {
 		if (op.trim().equals("add")) {
 			Wishlist wishlist = new Wishlist(uid, pid);
 			wishlistDao.addToWishlist(wishlist);
+			LogData.saveLog("WishlistServlet", request, "Product is added to wishlist successfully!", "");
 			response.sendRedirect("products.jsp");
 		} else if (op.trim().equals("remove")) {
 			wishlistDao.deleteWishlist(uid, pid);
+			LogData.saveLog("WishlistServlet", request, "Product is removed from wishlist successfully!", "");
 			response.sendRedirect("products.jsp");
 		} else if (op.trim().equals("delete")) {
 			wishlistDao.deleteWishlist(uid, pid);
+			LogData.saveLog("WishlistServlet", request, "Product is removed from wishlist successfully!", "");
 			response.sendRedirect("profile.jsp");
 		}
 	}

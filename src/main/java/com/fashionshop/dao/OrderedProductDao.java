@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fashionshop.entities.OrderedProduct;
+import com.fashionshop.helper.LogData;
 
 public class OrderedProductDao {
 	private Connection con;
@@ -30,8 +31,10 @@ public class OrderedProductDao {
 			psmt.executeUpdate();
 
 		} catch (SQLException e) {
+			LogData.saveLog("OrderedProductDao insertOrderedProduct", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("OrderedProductDao insertOrderedProduct", null, "Ordered Product added successfully", "");
 	}
 	public List<OrderedProduct> getAllOrderedProduct(int oid){
 		List<OrderedProduct> list = new ArrayList<OrderedProduct>();
@@ -51,8 +54,10 @@ public class OrderedProductDao {
 				list.add(orderProd);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("OrderedProductDao getAllOrderedProduct", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("OrderedProductDao getAllOrderedProduct", null, "Ordered Product list fetched successfully", "");
 		return list;
 	}
 }

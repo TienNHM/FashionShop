@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.fashionshop.entities.Wishlist;
+import com.fashionshop.helper.LogData;
 
 public class WishlistDao {
 	private Connection con;
@@ -27,8 +29,10 @@ public class WishlistDao {
 			flag = true;
 
 		} catch (Exception e) {
+			LogData.saveLog("WishlistDao addToWishlist", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("WishlistDao addToWishlist", null, "Product added to wishlist successfully", "");
 		return flag;
 	}
 	public boolean getWishlist(int uid, int pid) {
@@ -44,8 +48,10 @@ public class WishlistDao {
 				flag = true;
 			}
 		} catch (Exception e) {
+			LogData.saveLog("WishlistDao getWishlist", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("WishlistDao getWishlist", null, "Wishlist fetched successfully", "");
 		return flag;
 	}
 	
@@ -66,10 +72,13 @@ public class WishlistDao {
 				list.add(wishlist);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("WishlistDao getListByUserId", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("WishlistDao getListByUserId", null, "Wishlist list fetched successfully", "");
 		return list;
 	}
+
 	public void deleteWishlist(int uid, int pid) {
 		try {
 			String query = "delete from wishlists where iduser = ? and idproduct = ?";
@@ -79,7 +88,9 @@ public class WishlistDao {
 			
 			psmt.executeUpdate();
 		} catch (Exception e) {
+			LogData.saveLog("WishlistDao deleteWishlist", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("WishlistDao deleteWishlist", null, "Wishlist deleted successfully", "");
 	}
 }

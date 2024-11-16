@@ -12,6 +12,7 @@ import com.fashionshop.dao.UserDao;
 import com.fashionshop.entities.Order;
 import com.fashionshop.helper.ConnectionProvider;
 import com.fashionshop.helper.MailMessenger;
+import com.fashionshop.helper.LogData;
 
 public class UpdateOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,6 +35,8 @@ public class UpdateOrderServlet extends HttpServlet {
 			MailMessenger.orderShipped(userDao.getUserName(order.getUserId()), userDao.getUserEmail(order.getUserId()),
 					order.getOrderId(), order.getDate().toString());
 		}
+
+		LogData.saveLog("UpdateOrderServlet", request, "Order status updated successfully", "");
 		response.sendRedirect("display_orders.jsp");
 	}
 

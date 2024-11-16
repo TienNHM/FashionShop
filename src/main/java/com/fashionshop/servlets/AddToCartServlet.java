@@ -13,6 +13,7 @@ import com.fashionshop.dao.ProductDao;
 import com.fashionshop.entities.Cart;
 import com.fashionshop.entities.Message;
 import com.fashionshop.helper.ConnectionProvider;
+import com.fashionshop.helper.LogData;
 
 public class AddToCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,21 +34,26 @@ public class AddToCartServlet extends HttpServlet {
 		int qty = cartDao.getQuantity(uid, pid);
 		HttpSession session = request.getSession();
 		Message message = null;
+		String messageText = "";
 
 		if (qty == 0) {
 			Cart cart = new Cart(uid, pid, qty + 1);
 			cartDao.addToCart(cart);
-			message = new Message("Product is added to cart successfully!", "success", "alert-success");
+			messageText = "Product is added to cart successfully!";
 
 		} else {
 			int cid = cartDao.getIdByUserIdAndProductId(uid, pid);
 			cartDao.updateQuantity(cid, qty + 1);
-			message = new Message("Product quantity is increased!", "success", "alert-success");
+			messageText = "Product quantity is increased!";
 		}
+
+		message = new Message(messageText, "success", "alert-success");
 		// updating quantity of product in database
 		ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 		productDao.updateQuantity(pid, productDao.getProductQuantityById(pid) - 1);
 		session.setAttribute("message", message);
+
+		LogData.saveLog("AddToCartServlet", request, messageText, "");
 		response.sendRedirect("viewProduct.jsp?pid=" + pid);
 	}
 

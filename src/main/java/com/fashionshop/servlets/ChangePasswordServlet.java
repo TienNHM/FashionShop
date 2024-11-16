@@ -14,6 +14,7 @@ import com.fashionshop.dao.UserDao;
 import com.fashionshop.entities.Message;
 import com.fashionshop.helper.ConnectionProvider;
 import com.fashionshop.helper.MailMessenger;
+import com.fashionshop.helper.LogData;
 
 public class ChangePasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -45,10 +46,12 @@ public class ChangePasswordServlet extends HttpServlet {
 				Message message = new Message("We'ev sent a password reset code to " + email, "success",
 						"alert-success");
 				session.setAttribute("message", message);
+				LogData.saveLog("ChangePasswordServlet", request, "OTP sent to " + email, "");
 				response.sendRedirect("otp_code.jsp");
 			} else {
 				Message message = new Message("Email not found! Try with another email!", "error", "alert-danger");
 				session.setAttribute("message", message);
+				LogData.saveLog("ChangePasswordServlet", request, "Email not found! Try with another email!", "");
 				response.sendRedirect("forgot_password.jsp");
 				return;
 			}
@@ -57,10 +60,12 @@ public class ChangePasswordServlet extends HttpServlet {
 			int otp = (int) session.getAttribute("otp");
 			if (code == otp) {
 				session.removeAttribute("otp");
+				LogData.saveLog("ChangePasswordServlet", request, "OTP verified successfully", "");
 				response.sendRedirect("change_password.jsp");
 			} else {
 				Message message = new Message("Invalid verification code entered!", "error", "alert-danger");
 				session.setAttribute("message", message);
+				LogData.saveLog("ChangePasswordServlet", request, "Invalid verification code entered!", "");
 				response.sendRedirect("otp_code.jsp");
 				return;
 			}
@@ -68,10 +73,12 @@ public class ChangePasswordServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			String email = (String) session.getAttribute("email");
 			userDao.updateUserPasswordByEmail(password, email);
+			LogData.saveLog("ChangePasswordServlet", request, "Password updated successfully", "");
 			session.removeAttribute("email");
 
 			Message message = new Message("Password updated successfully!", "error", "alert-success");
 			session.setAttribute("message", message);
+			LogData.saveLog("ChangePasswordServlet", request, "Password updated successfully", "");
 			response.sendRedirect("login.jsp");
 		}
 	}

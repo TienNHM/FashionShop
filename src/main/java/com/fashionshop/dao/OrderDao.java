@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fashionshop.entities.Order;
+import com.fashionshop.helper.LogData;
 
 public class OrderDao {
 	
@@ -32,6 +33,7 @@ public class OrderDao {
 			int affectedRows = psmt.executeUpdate();
 
 	        if (affectedRows == 0) {
+				LogData.saveLog("OrderDao insertOrder", null, "", "Insertion failed, no rows affected.");
 	            throw new SQLException("Insertion failed, no rows affected.");
 	        }
 	        try (ResultSet generatedKeys = psmt.getGeneratedKeys()) {
@@ -39,14 +41,17 @@ public class OrderDao {
 	                id = generatedKeys.getInt(1);
 	            }
 	            else {
+					LogData.saveLog("OrderDao insertOrder", null, "", "Insertion failed, no ID obtained.");
 	                throw new SQLException("Insertion failed, no ID obtained.");
 	            }
 	        }
 		} catch (Exception e) {
+			LogData.saveLog("OrderDao insertOrder", null, "", e.getMessage());
 			e.printStackTrace();
 		}
 		return id;
 	}
+
 	public List<Order> getAllOrderByUserId(int uid){
 		List<Order> list = new ArrayList<Order>();
 		try {
@@ -66,10 +71,13 @@ public class OrderDao {
 				list.add(order);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("OrderDao getAllOrderByUserId", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("OrderDao getAllOrderByUserId", null, "Order list fetched successfully", "");
 		return list;
 	}
+
 	public Order getOrderById(int id){
 		Order order = new Order();
 		try {
@@ -86,10 +94,13 @@ public class OrderDao {
 				order.setUserId(rs.getInt("userId"));
 			}
 		} catch (Exception e) {
+			LogData.saveLog("OrderDao getOrderById", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("OrderDao getOrderById", null, "Order fetched successfully", "");
 		return order;
 	}
+
 	public List<Order> getAllOrder(){
 		List<Order> list = new ArrayList<Order>();
 		try {
@@ -108,10 +119,13 @@ public class OrderDao {
 				list.add(order);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("OrderDao getAllOrder", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("OrderDao getAllOrder", null, "Order list fetched successfully", "");
 		return list;
 	}
+
 	public void updateOrderStatus(int oid, String status) {
 		try {
 			String query = "update orders set status = ? where id = ?";
@@ -121,7 +135,9 @@ public class OrderDao {
 
 			psmt.executeUpdate();
 		} catch (Exception e) {
+			LogData.saveLog("OrderDao updateOrderStatus", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("OrderDao updateOrderStatus", null, "Order status updated successfully", "");
 	}
 }

@@ -14,6 +14,7 @@ import com.fashionshop.entities.Admin;
 import com.fashionshop.entities.Message;
 import com.fashionshop.entities.User;
 import com.fashionshop.helper.ConnectionProvider;
+import com.fashionshop.helper.LogData;
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,15 +42,18 @@ public class LoginServlet extends HttpServlet {
 				if (user != null) {
 					session.setAttribute("activeUser", user);
 					response.sendRedirect("index.jsp");
+					LogData.saveLog("LoginServlet", request, "User logged in successfully", "");
 				} else {
 					Message message = new Message("Invalid details! Try again!!", "error", "alert-danger");
 					session.setAttribute("message", message);
 					response.sendRedirect("login.jsp");
+					LogData.saveLog("LoginServlet", request, "", "Invalid details! Try again!!");
 					return;
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				LogData.saveLog("LoginServlet", request, "", e.getMessage());
 			}
 		} else if (login.trim().equals("admin")) {
 			try {
@@ -63,14 +67,17 @@ public class LoginServlet extends HttpServlet {
 				if (admin != null) {
 					session.setAttribute("activeAdmin", admin);
 					response.sendRedirect("admin.jsp");
+					LogData.saveLog("LoginServlet", request, "Admin logged in successfully", "");
 				} else {
 					Message message = new Message("Invalid details! Try again!!", "error", "alert-danger");
 					session.setAttribute("message", message);
 					response.sendRedirect("adminlogin.jsp");
+					LogData.saveLog("LoginServlet", request, "", "Invalid details! Try again!!");
 					return;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				LogData.saveLog("LoginServlet", request, "", e.getMessage());
 			}
 		}
 	}

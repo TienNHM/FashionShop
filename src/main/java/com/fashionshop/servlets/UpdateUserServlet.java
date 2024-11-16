@@ -12,6 +12,7 @@ import com.fashionshop.dao.UserDao;
 import com.fashionshop.entities.Message;
 import com.fashionshop.entities.User;
 import com.fashionshop.helper.ConnectionProvider;
+import com.fashionshop.helper.LogData;
 
 public class UpdateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -51,10 +52,12 @@ public class UpdateUserServlet extends HttpServlet {
 
 				userDao.updateUserAddresss(user);
 				session.setAttribute("activeUser", user);
+				LogData.saveLog("UpdateUserServlet", request, "User address updated successfully", "");
 				response.sendRedirect("checkout.jsp");
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				LogData.saveLog("UpdateUserServlet", request, "", e.getMessage());
 			}
 		} else if (op.trim().equals("updateUser")) {
 			try {
@@ -77,6 +80,7 @@ public class UpdateUserServlet extends HttpServlet {
 				session.setAttribute("activeUser", user);
 				Message message = new Message("User information updated successfully!!", "success", "alert-success");
 				session.setAttribute("message", message);
+				LogData.saveLog("UpdateUserServlet", request, message.getMessage(), "");
 				response.sendRedirect("profile.jsp");
 
 			} catch (Exception e) {
@@ -85,6 +89,7 @@ public class UpdateUserServlet extends HttpServlet {
 		} else if (op.trim().equals("deleteUser")) {
 			int uid = Integer.parseInt(request.getParameter("uid"));
 			userDao.deleteUser(uid);
+			LogData.saveLog("UpdateUserServlet", request, "User deleted successfully", "");
 			response.sendRedirect("display_users.jsp");
 		}
 	}

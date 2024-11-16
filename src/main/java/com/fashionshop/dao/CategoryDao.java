@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.fashionshop.entities.Category;
+import com.fashionshop.helper.LogData;
 
 public class CategoryDao {
 	private Connection con;
@@ -30,8 +31,10 @@ public class CategoryDao {
 			flag = true;
 
 		} catch (SQLException e) {
+			LogData.saveLog("CategoryDao saveCategory", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CategoryDao saveCategory", null, "Category saved successfully", "");
 		return flag;
 	}
 
@@ -53,11 +56,13 @@ public class CategoryDao {
 				list.add(category);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("CategoryDao getAllCategories", null, "", e.getMessage());
 			e.printStackTrace();
 		}
-
+		LogData.saveLog("CategoryDao getAllCategories", null, "Category list fetched successfully", "");
 		return list;
 	}
+
 	public Category getCategoryById(int cid) {
 		Category category = new Category();
 		try {
@@ -71,10 +76,13 @@ public class CategoryDao {
 				category.setCategoryImage(rs.getString("image"));
 			}
 		} catch (Exception e) {
+			LogData.saveLog("CategoryDao getCategoryById", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CategoryDao getCategoryById", null, "Category fetched successfully", "");
 		return category;
 	}
+
 	public String getCategoryName(int catId) {
 		String category = "";
 		try {
@@ -87,8 +95,10 @@ public class CategoryDao {
 			}
 
 		} catch (Exception e) {
+			LogData.saveLog("CategoryDao getCategoryName", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CategoryDao getCategoryName", null, "Category name fetched successfully", "");
 		return category;
 	}
 	
@@ -102,8 +112,10 @@ public class CategoryDao {
 			
 			psmt.executeUpdate();
 		} catch (Exception e) {
+			LogData.saveLog("CategoryDao updateCategory", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CategoryDao updateCategory", null, "Category updated successfully", "");
 	}
 	
 	public void deleteCategory(int cid) {
@@ -115,9 +127,12 @@ public class CategoryDao {
 			psmt.executeUpdate();
 			
 		} catch (Exception e) {
+			LogData.saveLog("CategoryDao deleteCategory", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CategoryDao deleteCategory", null, "Category deleted successfully", "");
 	}
+
 	public int categoryCount() {
 		int count = 0;
 		try {
@@ -127,8 +142,10 @@ public class CategoryDao {
 			rs.next();
 			count = rs.getInt(1);
 		} catch (Exception e) {
+			LogData.saveLog("CategoryDao categoryCount", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("CategoryDao categoryCount", null, "Category count fetched successfully", "");
 		return count;
 	}
 }

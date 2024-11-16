@@ -19,6 +19,7 @@ import com.fashionshop.entities.Category;
 import com.fashionshop.entities.Message;
 import com.fashionshop.entities.Product;
 import com.fashionshop.helper.ConnectionProvider;
+import com.fashionshop.helper.LogData;
 
 @MultipartConfig
 public class AddOperationServlet extends HttpServlet {
@@ -66,6 +67,7 @@ public class AddOperationServlet extends HttpServlet {
 			} else {
 				message = new Message("Something went wrong! Try again!!", "error", "alert-danger");
 			}
+			LogData.saveLog("AddOperationServlet", request, "Category added successfully", "");
 			session.setAttribute("message", message);
 			response.sendRedirect("admin.jsp");
 
@@ -100,12 +102,14 @@ public class AddOperationServlet extends HttpServlet {
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				LogData.saveLog("AddOperationServlet", request, "", e.getMessage());
 			}
 			if (flag) {
 				message = new Message("Product added successfully!!", "success", "alert-success");
 			} else {
 				message = new Message("Something went wrong! Try again!!", "error", "alert-danger");
 			}
+			LogData.saveLog("AddOperationServlet", request, "Product added successfully", "");
 			session.setAttribute("message", message);
 			response.sendRedirect("admin.jsp");
 
@@ -134,8 +138,10 @@ public class AddOperationServlet extends HttpServlet {
 
 				} catch (Exception e) {
 					e.printStackTrace();
+					LogData.saveLog("AddOperationServlet", request, "", e.getMessage());
 				}
 			}
+			LogData.saveLog("AddOperationServlet", request, "Category updated successfully", "");
 			message = new Message("Category updated successfully!!", "success", "alert-success");
 			session.setAttribute("message", message);
 			response.sendRedirect("display_category.jsp");
@@ -144,6 +150,8 @@ public class AddOperationServlet extends HttpServlet {
 
 			int cid = Integer.parseInt(request.getParameter("cid"));
 			catDao.deleteCategory(cid);
+
+			LogData.saveLog("AddOperationServlet", request, "Category deleted successfully", "");
 			response.sendRedirect("display_category.jsp");
 
 		} else if (operation.trim().equals("updateProduct")) {
@@ -184,9 +192,11 @@ public class AddOperationServlet extends HttpServlet {
 					fos.close();
 
 				} catch (Exception e) {
+					LogData.saveLog("AddOperationServlet", request, "", e.getMessage());
 					e.printStackTrace();
 				}
 			}
+			LogData.saveLog("AddOperationServlet", request, "Product updated successfully", "");
 			message = new Message("Product updated successfully!!", "success", "alert-success");
 			session.setAttribute("message", message);
 			response.sendRedirect("display_products.jsp");
@@ -195,6 +205,7 @@ public class AddOperationServlet extends HttpServlet {
 
 			int pid = Integer.parseInt(request.getParameter("pid"));
 			pdao.deleteProduct(pid);
+			LogData.saveLog("AddOperationServlet", request, "Product deleted successfully", "");
 			response.sendRedirect("display_products.jsp");
 
 		}
@@ -210,5 +221,7 @@ public class AddOperationServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		doPost(request, response);
+
+		LogData.saveLog("AddOperationServlet", request, "GET method called", "");
 	}
 }

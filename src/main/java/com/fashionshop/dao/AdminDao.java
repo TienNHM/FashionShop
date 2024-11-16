@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.fashionshop.entities.Admin;
+import com.fashionshop.helper.LogData;
 
 public class AdminDao {
 	
@@ -33,8 +34,10 @@ public class AdminDao {
 			flag = true;
 
 		} catch (SQLException e) {
+			LogData.saveLog("AdminDao saveAdmin", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("AdminDao saveAdmin", null, "Admin saved successfully", "");
 		return flag;
 	}
 	public Admin getAdminByEmailPassword(String email, String password) {
@@ -56,8 +59,10 @@ public class AdminDao {
 			}
 
 		} catch (Exception e) {
+			LogData.saveLog("AdminDao getAdminByEmailPassword", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("AdminDao getAdminByEmailPassword", null, "Admin fetched successfully", "");
 		return admin;
 	}
 	public List<Admin> getAllAdmin(){
@@ -78,8 +83,10 @@ public class AdminDao {
 				list.add(admin);
 			}
 		} catch (Exception e) {
+			LogData.saveLog("AdminDao getAllAdmin", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("AdminDao getAllAdmin", null, "Admin list fetched successfully", "");
 		return list;
 	}
 	public boolean deleteAdmin(int id) {
@@ -91,8 +98,10 @@ public class AdminDao {
 			psmt.executeUpdate();
 			flag = true;
 		} catch (Exception e) {
+			LogData.saveLog("AdminDao deleteAdmin", null, "", e.getMessage());
 			e.printStackTrace();
 		}
+		LogData.saveLog("AdminDao deleteAdmin", null, "Admin deleted successfully", "");
 		return flag;
 	}
 }
