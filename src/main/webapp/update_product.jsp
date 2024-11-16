@@ -2,8 +2,7 @@
 <%@page import="com.fashionshop.entities.Product"%>
 <%@page import="com.fashionshop.dao.ProductDao"%>
 <%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 if (activeAdmin == null) {
@@ -16,7 +15,7 @@ if (activeAdmin == null) {
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Update Product</title>
 <%@include file="Components/common_css_js.jsp"%>
 </head>

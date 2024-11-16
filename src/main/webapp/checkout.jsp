@@ -1,9 +1,8 @@
 <%@page import="com.fashionshop.entities.Message"%>
 <%@page import="com.fashionshop.dao.ProductDao"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@page import="com.fashionshop.dao.CartDao"%>
 <%@page errorPage="error_exception.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 User activeUser = (User) session.getAttribute("activeUser");
 if (activeUser == null) {
@@ -17,7 +16,7 @@ String from = (String)session.getAttribute("from");
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Checkout</title>
 <%@include file="Components/common_css_js.jsp"%>
 </head>
@@ -120,20 +119,20 @@ String from = (String)session.getAttribute("from");
 							</tr>
 							<tr>
 								<td>Total Price</td>
-								<td>&#8377; <%=totalPrice%></td>
+								<td>&#8363; <%=totalPrice%></td>
 							</tr>
 							<tr>
 								<td>Delivery Charges</td>
-								<td>&#8377; 40</td>
+								<td>&#8363; 40</td>
 							</tr>
 							<tr>
 								<td>Packaging Charges</td>
-								<td>&#8377; 29</td>
+								<td>&#8363; 29</td>
 							</tr>
 							<tr>
 								<td><h5>Amount Payable :</h5></td>
 								<td><h5>
-										&#8377;
+										&#8363;
 										<%=totalPrice + 69%></h5></td>
 							</tr>
 						</table>
@@ -150,20 +149,20 @@ String from = (String)session.getAttribute("from");
 							</tr>
 							<tr>
 								<td>Total Price</td>
-								<td>&#8377; <%=price%></td>
+								<td>&#8363; <%=price%></td>
 							</tr>
 							<tr>
 								<td>Delivery Charges</td>
-								<td>&#8377; 40</td>
+								<td>&#8363; 40</td>
 							</tr>
 							<tr>
 								<td>Packaging Charges</td>
-								<td>&#8377; 29</td>
+								<td>&#8363; 29</td>
 							</tr>
 							<tr>
 								<td><h5>Amount Payable :</h5></td>
 								<td><h5>
-										&#8377;
+										&#8363;
 										<%=price + 69%></h5></td>
 							</tr>
 						</table>

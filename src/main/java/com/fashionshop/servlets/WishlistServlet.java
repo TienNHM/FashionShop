@@ -1,10 +1,11 @@
 package com.fashionshop.servlets;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.fashionshop.dao.WishlistDao;
 import com.fashionshop.entities.Wishlist;
@@ -15,8 +16,12 @@ public class WishlistServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
 		int uid = Integer.parseInt(request.getParameter("uid"));
 		int pid = Integer.parseInt(request.getParameter("pid"));
 		String op = request.getParameter("op");
@@ -29,7 +34,7 @@ public class WishlistServlet extends HttpServlet {
 		} else if (op.trim().equals("remove")) {
 			wishlistDao.deleteWishlist(uid, pid);
 			response.sendRedirect("products.jsp");
-		}else if(op.trim().equals("delete")) {
+		} else if (op.trim().equals("delete")) {
 			wishlistDao.deleteWishlist(uid, pid);
 			response.sendRedirect("profile.jsp");
 		}
@@ -37,7 +42,12 @@ public class WishlistServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
 		doGet(request, response);
 	}
 

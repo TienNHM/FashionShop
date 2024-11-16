@@ -1,11 +1,12 @@
 package com.fashionshop.servlets;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fashionshop.dao.AdminDao;
 import com.fashionshop.dao.UserDao;
@@ -19,6 +20,11 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		String login = request.getParameter("login");
 		if (login.trim().equals("user")) {
@@ -52,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 
 				AdminDao adminDao = new AdminDao(ConnectionProvider.getConnection());
 				Admin admin = adminDao.getAdminByEmailPassword(userName, password);
-				
+
 				HttpSession session = request.getSession();
 				if (admin != null) {
 					session.setAttribute("activeAdmin", admin);

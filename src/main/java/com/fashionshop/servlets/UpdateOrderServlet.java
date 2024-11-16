@@ -1,10 +1,11 @@
 package com.fashionshop.servlets;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.fashionshop.dao.OrderDao;
 import com.fashionshop.dao.UserDao;
@@ -17,6 +18,11 @@ public class UpdateOrderServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		int oid = Integer.parseInt(request.getParameter("oid"));
 		String status = request.getParameter("status");
@@ -33,6 +39,12 @@ public class UpdateOrderServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
 		doPost(request, response);
 	}
 

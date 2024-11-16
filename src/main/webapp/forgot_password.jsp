@@ -1,10 +1,11 @@
 <%@page import="java.util.Random"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page errorPage="error_exception.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Forget Password</title>
 <%@include file="Components/common_css_js.jsp"%>
 <style>

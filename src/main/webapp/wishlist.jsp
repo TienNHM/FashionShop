@@ -3,11 +3,11 @@
 <%@page import="com.fashionshop.dao.ProductDao"%>
 <%@page import="com.fashionshop.entities.Wishlist"%>
 <%@page import="java.util.List"%>
-<%@page errorPage="error_exception.jsp"%>
 <%@page import="com.fashionshop.entities.User"%>
 <%@page import="com.fashionshop.helper.ConnectionProvider"%>
 <%@page import="com.fashionshop.dao.WishlistDao"%>
-
+<%@page errorPage="error_exception.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 User u1 = (User) session.getAttribute("activeUser");
 if (u1 == null) {
@@ -47,7 +47,7 @@ ProductDao pDao = new ProductDao(ConnectionProvider.getConnection());
 				<td><img src="Product_imgs\<%=p.getProductImages()%>"
 					style="width: 50px; height: 50px; width: auto;"></td>
 				<td class="text-start"><%=p.getProductName()%></td>
-				<td>&#8377;<%=p.getProductPriceAfterDiscount()%></td>
+				<td>&#8363;<%=p.getProductPriceAfterDiscount()%></td>
 				<td><a
 					href="WishlistServlet?uid=<%=u1.getUserId()%>&pid=<%=p.getProductId()%>&op=delete"
 					class="btn btn-secondary" role="button">Remove</a></td>

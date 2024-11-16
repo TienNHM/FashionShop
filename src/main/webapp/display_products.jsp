@@ -1,10 +1,9 @@
 <%@page import="com.fashionshop.entities.Message"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	<%@page errorPage="error_exception.jsp"%>
 <%@page import="com.fashionshop.dao.UserDao"%>
 <%@page import="com.fashionshop.entities.Product"%>
 <%@page import="com.fashionshop.dao.ProductDao"%>
+<%@page errorPage="error_exception.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 if (activeAdmin == null) {
@@ -19,7 +18,7 @@ ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>View Product's</title>
 <%@include file="Components/common_css_js.jsp"%>
 </head>
@@ -50,7 +49,7 @@ ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 					style="width: 60px; height: 60px; width: auto;"></td>
 				<td class="text-start"><%=prod.getProductName()%></td>
 				<td><%=category%></td>
-				<td>&#8377;<%=prod.getProductPriceAfterDiscount()%></td>
+				<td>&#8363;<%=prod.getProductPriceAfterDiscount()%></td>
 				<td><%=prod.getProductQunatity()%></td>
 				<td><%=prod.getProductDiscount()%>%</td>
 				<td><a href="update_product.jsp?pid=<%=prod.getProductId()%>" role="button" class="btn btn-secondary">Update</a>&emsp;<a

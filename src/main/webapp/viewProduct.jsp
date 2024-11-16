@@ -2,9 +2,8 @@
 <%@page import="com.fashionshop.dao.ProductDao"%>
 <%@page import="com.fashionshop.entities.Product"%>
 <%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	
+<%@page errorPage="error_exception.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 int productId = Integer.parseInt(request.getParameter("pid"));
 ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
@@ -13,7 +12,7 @@ Product product = (Product) productDao.getProductsByProductId(productId);
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>View Product</title>
 <%@include file="Components/common_css_js.jsp"%>
 <style type="text/css">
@@ -52,38 +51,41 @@ Product product = (Product) productDao.getProductsByProductId(productId);
 				<div class="container-fluid my-5">
 					<h4><%=product.getProductName()%></h4>
 					<span class="fs-5"><b>Description</b></span><br> <span><%=product.getProductDescription()%></span><br>
-					<span class="real-price">&#8377;<%=product.getProductPriceAfterDiscount()%></span>&ensp;
-					<span class="product-price">&#8377;<%=product.getProductPrice()%></span>&ensp;
+					<span class="real-price">&#8363;<%=product.getProductPriceAfterDiscount()%></span>&ensp;
+					<span class="product-price">&#8363;<%=product.getProductPrice()%></span>&ensp;
 					<span class="product-discount"><%=product.getProductDiscount()%>&#37;off</span><br>
 					<span class="fs-5"><b>Status : </b></span> <span id="availability">
 						<%
 						if (product.getProductQunatity() > 0) {
-							out.println("Available");
+							out.println("Còn hàng");
 						} else {
-							out.println("Currently Out of stock");
+							out.println("Tạm hết hàng");
 						}
 						%>
-					</span><br> <span class="fs-5"><b>Category : </b></span> <span><%=catDao.getCategoryName(product.getCategoryId())%></span>
+					</span>
+					<br> 
+					<span class="fs-5"><b>Danh mục: </b></span><span><%=catDao.getCategoryName(product.getCategoryId())%></span>
+					
 					<form method="post">
 						<div class="container-fluid text-center mt-3">
 							<%
 							if (user == null) {
 							%>
 							<button type="button" onclick="window.open('login.jsp', '_self')"
-								class="btn btn-primary text-white btn-lg">Add to Cart</button>
+								class="btn btn-primary text-white btn-lg">Thêm vào giỏ hàng</button>
 							&emsp;
 							<button type="button" onclick="window.open('login.jsp', '_self')"
-								class="btn btn-info text-white btn-lg">Buy Now</button>
+								class="btn btn-info text-white btn-lg">Mua ngay</button>
 							<%
 							} else {
 							%>
 							<button type="submit"
 								formaction="./AddToCartServlet?uid=<%=user.getUserId()%>&pid=<%=product.getProductId()%>"
-								class="btn btn-primary text-white btn-lg">Add to Cart</button>
+								class="btn btn-primary text-white btn-lg">Thêm vào giỏ hàng</button>
 							&emsp; <a
 								href="checkout.jsp" id="buy-btn"
 								class="btn btn-info text-white btn-lg" role="button"
-								aria-disabled="true">Buy Now</a> 
+								aria-disabled="true">Mua ngay</a> 
 							<%
 							}
 							%>
@@ -95,7 +97,7 @@ Product product = (Product) productDao.getProductsByProductId(productId);
 	</div>
 	<script>
 		$(document).ready(function() {
-			if ($('#availability').text().trim() == "Currently Out of stock") {
+			if ($('#availability').text().trim() == "Tạm hết hàng") {
 				$('#availability').css('color', 'red');
 				$('.btn').addClass('disabled');
 			}

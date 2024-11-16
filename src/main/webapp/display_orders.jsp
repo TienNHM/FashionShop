@@ -1,15 +1,13 @@
 <%@page import="com.fashionshop.entities.Message"%>
 <%@page import="com.fashionshop.dao.UserDao"%>
-<%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@page import="com.fashionshop.entities.OrderedProduct"%>
 <%@page import="com.fashionshop.entities.Order"%>
 <%@page import="java.util.List"%>
 <%@page import="com.fashionshop.dao.OrderedProductDao"%>
 <%@page import="com.fashionshop.dao.OrderDao"%>
 <%@page import="com.fashionshop.helper.ConnectionProvider"%>
-
+<%@page errorPage="error_exception.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 if (activeAdmin == null) {
@@ -26,7 +24,7 @@ UserDao userDao = new UserDao(ConnectionProvider.getConnection());
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>View Order's</title>
 <%@include file="Components/common_css_js.jsp"%>
 </head>
@@ -55,7 +53,7 @@ UserDao userDao = new UserDao(ConnectionProvider.getConnection());
 					<th>Order ID</th>
 					<th>Product Details</th>
 					<th>Delivery Address</th>
-					<th>Date & Time</th>
+					<th>DateTime</th>
 					<th>Payment Type</th>
 					<th>Status</th>
 					<th colspan="2" class="text-center">Action</th>
@@ -73,7 +71,7 @@ UserDao userDao = new UserDao(ConnectionProvider.getConnection());
 						style="width: 50px; height: 50px; width: auto;"></td>
 					<td><%=order.getOrderId()%></td>
 					<td><%=orderProduct.getName()%><br>Quantity: <%=orderProduct.getQuantity()%><br>Total
-						Price: &#8377;<%=orderProduct.getPrice() * orderProduct.getQuantity()%></td>
+						Price: &#8363;<%=orderProduct.getPrice() * orderProduct.getQuantity()%></td>
 					<td><%=userDao.getUserName(order.getUserId())%><br>Mobile No. <%=userDao.getUserPhone(order.getUserId())%><br><%=userDao.getUserAddress(order.getUserId())%></td>
 					<td><%=order.getDate()%></td>
 					<td><%=order.getPayementType()%></td>

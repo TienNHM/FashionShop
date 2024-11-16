@@ -2,8 +2,7 @@
 <%@page import="com.fashionshop.entities.Product"%>
 <%@page import="com.fashionshop.helper.ConnectionProvider"%>
 <%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 List<Product> productList = productDao.getAllLatestProducts();
@@ -12,7 +11,7 @@ List<Product> topDeals = productDao.getDiscountedProducts();
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Home</title>
 <%@include file="Components/common_css_js.jsp"%>
 <style type="text/css">
@@ -105,7 +104,7 @@ List<Product> topDeals = productDao.getDiscountedProducts();
 		<div class="row row-cols-1 row-cols-md-4 g-3">
 			<div class="col">
 				<div class="container text-center px-5 py-5">
-					<h1>Latest Products</h1>
+					<h1>Xem gần đây</h1>
 					<img src="Images\product.png" class="card-img-top"
 						style="max-width: 100%; max-height: 200px; width: auto;">
 				</div>
@@ -127,8 +126,8 @@ List<Product> topDeals = productDao.getDiscountedProducts();
 							<h5 class="card-title text-center"><%=productList.get(i).getProductName()%></h5>
 
 							<div class="container text-center">
-								<span class="real-price">&#8377;<%=productList.get(i).getProductPriceAfterDiscount()%></span>
-								&ensp;<span class="product-price">&#8377;<%=productList.get(i).getProductPrice()%>
+								<span class="real-price">&#8363;<%=productList.get(i).getProductPriceAfterDiscount()%></span>
+								&ensp;<span class="product-price">&#8363;<%=productList.get(i).getProductPrice()%>
 								</span>&ensp;<span class="product-discount"><%=productList.get(i).getProductDiscount()%>&#37;
 									off</span>
 							</div>
@@ -164,8 +163,8 @@ List<Product> topDeals = productDao.getDiscountedProducts();
 							<h5 class="card-title text-center"><%=topDeals.get(i).getProductName()%></h5>
 
 							<div class="container text-center">
-								<span class="real-price">&#8377;<%=topDeals.get(i).getProductPriceAfterDiscount()%></span>
-								&ensp;<span class="product-price">&#8377;<%=topDeals.get(i).getProductPrice()%>
+								<span class="real-price">&#8363;<%=topDeals.get(i).getProductPriceAfterDiscount()%></span>
+								&ensp;<span class="product-price">&#8363;<%=topDeals.get(i).getProductPrice()%>
 								</span>&ensp;<span class="product-discount"><%=topDeals.get(i).getProductDiscount()%>&#37;
 									off</span>
 							</div>

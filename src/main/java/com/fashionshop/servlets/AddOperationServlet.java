@@ -1,17 +1,18 @@
 package com.fashionshop.servlets;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
 import com.fashionshop.dao.CategoryDao;
 import com.fashionshop.dao.ProductDao;
 import com.fashionshop.entities.Category;
@@ -25,6 +26,11 @@ public class AddOperationServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		String operation = request.getParameter("operation");
 		CategoryDao catDao = new CategoryDao(ConnectionProvider.getConnection());
@@ -102,7 +108,7 @@ public class AddOperationServlet extends HttpServlet {
 			}
 			session.setAttribute("message", message);
 			response.sendRedirect("admin.jsp");
-			
+
 		} else if (operation.trim().equals("updateCategory")) {
 
 			int cid = Integer.parseInt(request.getParameter("cid"));
@@ -133,7 +139,7 @@ public class AddOperationServlet extends HttpServlet {
 			message = new Message("Category updated successfully!!", "success", "alert-success");
 			session.setAttribute("message", message);
 			response.sendRedirect("display_category.jsp");
-			
+
 		} else if (operation.trim().equals("deleteCategory")) {
 
 			int cid = Integer.parseInt(request.getParameter("cid"));
@@ -196,8 +202,13 @@ public class AddOperationServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(req, resp);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
+		doPost(request, response);
 	}
 }

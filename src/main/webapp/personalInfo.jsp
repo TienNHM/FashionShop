@@ -1,5 +1,7 @@
 <%@page import="com.fashionshop.entities.Message"%>
 <%@page import="com.fashionshop.entities.User"%>
+<%@page errorPage="error_exception.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 User user1 = (User) session.getAttribute("activeUser");
 if (user1 == null) {

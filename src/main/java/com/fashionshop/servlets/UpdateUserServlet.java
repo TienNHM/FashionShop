@@ -1,12 +1,12 @@
 package com.fashionshop.servlets;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fashionshop.dao.UserDao;
 import com.fashionshop.entities.Message;
@@ -18,6 +18,11 @@ public class UpdateUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		String op = request.getParameter("operation");
 		HttpSession session = request.getSession();
@@ -85,9 +90,15 @@ public class UpdateUserServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(req, resp);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
+		doPost(request, response);
 	}
 
 }

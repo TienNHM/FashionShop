@@ -5,6 +5,8 @@
 <%@page import="java.util.List"%>
 <%@page import="com.fashionshop.helper.ConnectionProvider"%>
 <%@page import="com.fashionshop.dao.ProductDao"%>
+<%@page errorPage="error_exception.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 User u = (User) session.getAttribute("activeUser");
 WishlistDao wishlistDao = new WishlistDao(ConnectionProvider.getConnection());
@@ -18,23 +20,23 @@ ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 List<Product> prodList = null;
 if (searchKey != null) {
 	if (!searchKey.isEmpty()) {
-		message = "Showing results for \"" + searchKey + "\"";
+		message = "Hiển thị kết quả cho \"" + searchKey + "\"";
 	}else{
-		message = "No product found!";
+		message = "Không tìm thấy sản phẩm!";
 	}
 	prodList = productDao.getAllProductsBySearchKey(searchKey);
 
 } else if (catId != null && !(catId.trim().equals("0"))) {
 	prodList = productDao.getAllProductsByCategoryId(Integer.parseInt(catId.trim()));
-	message = "Showing results for \"" + categoryDao.getCategoryName(Integer.parseInt(catId.trim())) + "\"";
+	message = "Hiển thị kết quả cho \"" + categoryDao.getCategoryName(Integer.parseInt(catId.trim())) + "\"";
 } else {
 	prodList = productDao.getAllProducts();
-	message = "All Products";
+	message = "Tất cả sản phẩm";
 }
 
 if (prodList != null && prodList.size() == 0) {
 
-	message = "No items are available for \""
+	message = "Không tìm thấy kết quả cho \""
 	+ (searchKey != null ? searchKey : categoryDao.getCategoryName(Integer.parseInt(catId.trim()))) + "\"";
 
 	prodList = productDao.getAllProducts();
@@ -43,7 +45,7 @@ if (prodList != null && prodList.size() == 0) {
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Products</title>
 <%@include file="Components/common_css_js.jsp"%>
 <style>
@@ -130,8 +132,8 @@ if (prodList != null && prodList.size() == 0) {
 						<h5 class="card-title text-center"><%=p.getProductName()%></h5>
 
 						<div class="container text-center">
-							<span class="real-price">&#8377;<%=p.getProductPriceAfterDiscount()%></span>&ensp;
-							<span class="product-price">&#8377;<%=p.getProductPrice()%></span>&ensp;
+							<span class="real-price">&#8363;<%=p.getProductPriceAfterDiscount()%></span>&ensp;
+							<span class="product-price">&#8363;<%=p.getProductPrice()%></span>&ensp;
 							<span class="product-discount"><%=p.getProductDiscount()%>&#37;off</span>
 						</div>
 						<div class="container text-center mb-2 mt-2">

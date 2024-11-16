@@ -4,9 +4,7 @@
 <%@page import="com.fashionshop.entities.Cart"%>
 <%@page import="com.fashionshop.dao.CartDao"%>
 <%@page errorPage="error_exception.jsp"%>
-
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 User activeUser = (User) session.getAttribute("activeUser");
 if (activeUser == null) {
@@ -19,7 +17,7 @@ if (activeUser == null) {
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Shopping cart</title>
 <%@include file="Components/common_css_js.jsp"%>
 <style type="text/css">
@@ -81,7 +79,7 @@ if (activeUser == null) {
 						<td><img src="Product_imgs\<%=prod.getProductImages()%>"
 							style="width: 50px; height: 50px; width: auto;"></td>
 						<td class="text-start"><%=prod.getProductName()%></td>
-						<td>&#8377;<%=prod.getProductPriceAfterDiscount()%></td>
+						<td>&#8363;<%=prod.getProductPriceAfterDiscount()%></td>
 						<td><a
 							href="CartOperationServlet?cid=<%=c.getCartId()%>&opt=1"
 							role="button" class="btn btn-light"
@@ -102,7 +100,7 @@ if (activeUser == null) {
 							<%} %>
 						</td>
 
-						<td>&#8377;<%=c.getQuantity() * prod.getProductPriceAfterDiscount()%></td>
+						<td>&#8363;<%=c.getQuantity() * prod.getProductPriceAfterDiscount()%></td>
 						<td><a
 							href="CartOperationServlet?cid=<%=c.getCartId()%>&opt=3"
 							class="btn btn-secondary" role="button">Remove</a></td>
@@ -113,7 +111,7 @@ if (activeUser == null) {
 					%>
 					<tr>
 						<td class="text-end" colspan="8"><h4 class='pe-5'>
-								Total Amount : &#8377;
+								Total Amount : &#8363;
 								<%=totalPrice%></h4></td>
 					</tr>
 				</tbody>

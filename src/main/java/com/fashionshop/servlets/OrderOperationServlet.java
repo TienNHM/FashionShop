@@ -1,13 +1,15 @@
 package com.fashionshop.servlets;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.fashionshop.dao.CartDao;
 import com.fashionshop.dao.OrderDao;
 import com.fashionshop.dao.OrderedProductDao;
@@ -26,6 +28,11 @@ public class OrderOperationServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		HttpSession session = request.getSession();
 		String from = (String) session.getAttribute("from");
@@ -58,8 +65,8 @@ public class OrderOperationServlet extends HttpServlet {
 				}
 				session.removeAttribute("from");
 				session.removeAttribute("totalPrice");
-				
-				//removing all product from cart after successful order
+
+				// removing all product from cart after successful order
 				cartDao.removeAllProduct();
 
 			} catch (Exception e) {
@@ -84,23 +91,29 @@ public class OrderOperationServlet extends HttpServlet {
 
 				OrderedProduct orderedProduct = new OrderedProduct(prodName, prodQty, price, image, id);
 				orderedProductDao.insertOrderedProduct(orderedProduct);
-				
-				//updating(decreasing) quantity of product in database
+
+				// updating(decreasing) quantity of product in database
 				productDao.updateQuantity(pid, productDao.getProductQuantityById(pid) - 1);
-				
+
 				session.removeAttribute("from");
 				session.removeAttribute("pid");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-	    session.setAttribute("order", "success");
-	    MailMessenger.successfullyOrderPlaced(user.getUserName(), user.getUserEmail(), orderId, new Date().toString());
-        response.sendRedirect("index.jsp");
+		session.setAttribute("order", "success");
+		MailMessenger.successfullyOrderPlaced(user.getUserName(), user.getUserEmail(), orderId, new Date().toString());
+		response.sendRedirect("index.jsp");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// Thiết lập mã hóa UTF-8 cho request và response
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
 		doPost(request, response);
 	}
 

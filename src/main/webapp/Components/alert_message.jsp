@@ -1,4 +1,6 @@
 <%@page import="com.fashionshop.entities.Message"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
 Message messg = (Message) session.getAttribute("message");
 if (messg != null) {

@@ -7,7 +7,7 @@
 <%@page import="com.fashionshop.helper.ConnectionProvider"%>
 <%@page import="com.fashionshop.entities.User"%>
 <%@page errorPage="error_exception.jsp"%>
-
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 User u2 = (User) session.getAttribute("activeUser");
 if (u2 == null) {
