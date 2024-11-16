@@ -19,10 +19,12 @@ public class ConnectionProvider extends HttpServlet{
 	private static final String MySQL_USER = "sql12744502";
 	private static final String MySQL_PASSWORD = "EDYMwjjVNL";
 
-	private static final String PostgreSQL_URL = "jdbc:postgresql://localhost:5432/postgres";
-	// private static final String PostgreSQL_URL = "jdbc:postgresql://192.168.236.128:5432/studentdb";
-	private static final String PostgreSQL_USER = "postgres";
-	private static final String PostgreSQL_PASSWORD = "admin";
+	// private static final String PostgreSQL_URL = "jdbc:postgresql://localhost:5432/postgres";
+	// private static final String PostgreSQL_USER = "postgres";
+	// private static final String PostgreSQL_PASSWORD = "admin";
+	private static final String PostgreSQL_URL = "jdbc:postgresql://192.168.236.128:5432/studentdb";
+	private static final String PostgreSQL_USER = "io22110006";
+	private static final String PostgreSQL_PASSWORD = "7H8Kt2Y9376W";
 	private static final String PostgreSQL_SCHEMA = "db22110006";
 
 	public static Connection getConnection() {
