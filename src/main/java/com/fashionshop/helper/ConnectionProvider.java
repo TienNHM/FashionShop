@@ -19,7 +19,7 @@ public class ConnectionProvider extends HttpServlet{
 	private static final String MySQL_USER = "sql12744502";
 	private static final String MySQL_PASSWORD = "EDYMwjjVNL";
 
-	private static final String PostgreSQL_URL = "jdbc:postgresql://localhost:5432/postgres?currentSchema=fashionshop";
+	private static final String PostgreSQL_URL = "jdbc:postgresql://localhost:5432/postgres?currentSchema=public";
 	private static final String PostgreSQL_USER = "postgres";
 	private static final String PostgreSQL_PASSWORD = "admin";
 
@@ -60,7 +60,7 @@ public class ConnectionProvider extends HttpServlet{
 				connection = DriverManager.getConnection(PostgreSQL_URL, PostgreSQL_USER, PostgreSQL_PASSWORD);
 
 				Statement stmt = connection.createStatement();
-				stmt.execute("SET search_path TO fashionshop");
+				stmt.execute("SET search_path TO public");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
