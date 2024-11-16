@@ -272,6 +272,7 @@ public class ProductDao {
 		}
 		return price;
 	}
+
 	public int getProductQuantityById(int pid) {
 		int qty = 0;
 		try {
@@ -281,7 +282,7 @@ public class ProductDao {
 			ResultSet rs = psmt.executeQuery();
 			rs.next();
 			qty = rs.getInt(1);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
