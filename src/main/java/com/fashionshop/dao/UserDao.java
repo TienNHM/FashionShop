@@ -23,7 +23,7 @@ public class UserDao {
 		boolean flag = false;
 
 		try {
-			String query = "insert into user(name, email, password, phone, gender, address, city, pincode, state) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String query = "insert into users(name, email, password, phone, gender, address, city, pincode, state) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, user.getUserName());
 			psmt.setString(2, user.getUserEmail());
@@ -47,7 +47,7 @@ public class UserDao {
 	public User getUserByEmailPassword(String userEmail, String userPassword) {
 		User user = null;
 		try {
-			String query = "select * from user where email = ? and password = ?";
+			String query = "select * from users where email = ? and password = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, userEmail);
 			psmt.setString(2, userPassword);
@@ -79,7 +79,7 @@ public class UserDao {
 	public List<User> getAllUser() {
 		List<User> list = new ArrayList<User>();
 		try {
-			String query = "select * from user";
+			String query = "select * from users";
 			Statement statement = this.con.createStatement();
 			ResultSet set = statement.executeQuery(query);
 			while (set.next()) {
@@ -106,7 +106,7 @@ public class UserDao {
 
 	public void updateUserAddresss(User user) {
 		try {
-			String query = "update user set address = ?, city = ?, pincode = ?, state = ? where userid = ?";
+			String query = "update users set address = ?, city = ?, pincode = ?, state = ? where userid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, user.getUserAddress());
 			psmt.setString(2, user.getUserCity());
@@ -122,7 +122,7 @@ public class UserDao {
 	}
 	public void updateUserPasswordByEmail(String password, String mail) {
 		try {
-			String query = "update user set password = ? where email = ?";
+			String query = "update users set password = ? where email = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, password);
 			psmt.setString(2, mail);
@@ -136,7 +136,7 @@ public class UserDao {
 
 	public void updateUser(User user) {
 		try {
-			String query = "update user set name = ?, email = ?, phone = ?, gender = ?, address = ?, city = ?, pincode = ?, state = ? where userid = ?";
+			String query = "update users set name = ?, email = ?, phone = ?, gender = ?, address = ?, city = ?, pincode = ?, state = ? where userid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, user.getUserName());
 			psmt.setString(2, user.getUserEmail());
@@ -158,7 +158,7 @@ public class UserDao {
 	public int userCount() {
 		int count = 0;
 		try {
-			String query = "select count(*) from user";
+			String query = "select count(*) from users";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			rs.next();
@@ -172,7 +172,7 @@ public class UserDao {
 	public String getUserAddress(int uid) {
 		String address = "";
 		try {
-			String query = "select address, city, pincode, state from user where userid = ?";
+			String query = "select address, city, pincode, state from users where userid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 
@@ -187,7 +187,7 @@ public class UserDao {
 	public String getUserName(int uid) {
 		String name = "";
 		try {
-			String query = "select name from user where userid = ?";
+			String query = "select name from users where userid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			
@@ -202,7 +202,7 @@ public class UserDao {
 	public String getUserEmail(int uid) {
 		String email = "";
 		try {
-			String query = "select email from user where userid = ?";
+			String query = "select email from users where userid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			
@@ -217,7 +217,7 @@ public class UserDao {
 	public String getUserPhone(int uid) {
 		String phone = "";
 		try {
-			String query = "select phone from user where userid = ?";
+			String query = "select phone from users where userid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			
@@ -231,7 +231,7 @@ public class UserDao {
 	}
 	public void deleteUser(int uid) {
 		try {
-			String query = "delete from user where userid = ?";
+			String query = "delete from users where userid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			psmt.executeUpdate();
@@ -242,7 +242,7 @@ public class UserDao {
 	public List<String> getAllEmail() {
 		List<String> list = new ArrayList<>();
 		try {
-			String query = "select email from user";
+			String query = "select email from users";
 			Statement statement = this.con.createStatement();
 			ResultSet set = statement.executeQuery(query);
 			while (set.next()) {

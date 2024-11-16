@@ -22,7 +22,7 @@ public class AdminDao {
 		boolean flag = false;
 
 		try {
-			String query = "insert into admin(name, email, password, phone) values(?, ?, ?, ?)";
+			String query = "insert into admins(name, email, password, phone) values(?, ?, ?, ?)";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, admin.getName());
 			psmt.setString(2, admin.getEmail());
@@ -40,7 +40,7 @@ public class AdminDao {
 	public Admin getAdminByEmailPassword(String email, String password) {
 		Admin admin = null;
 		try {
-			String query = "select * from admin where email = ? and password = ?";
+			String query = "select * from admins where email = ? and password = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, email);
 			psmt.setString(2, password);
@@ -64,7 +64,7 @@ public class AdminDao {
 		List<Admin> list = new ArrayList<Admin>();
 		try {
 			
-			String query = "select * from admin";
+			String query = "select * from admins";
 			Statement statement = this.con.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
@@ -85,7 +85,7 @@ public class AdminDao {
 	public boolean deleteAdmin(int id) {
 		boolean flag = false;
 		try {
-			String query = "delete from admin where id = ?";
+			String query = "delete from admins where id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, id);
 			psmt.executeUpdate();

@@ -18,7 +18,7 @@ public class WishlistDao {
 	public boolean addToWishlist(Wishlist w) {
 		boolean flag = false;
 		try {
-			String query = "insert into wishlist(iduser, idproduct) values(?,?)";
+			String query = "insert into wishlists(iduser, idproduct) values(?,?)";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, w.getUserId());
 			psmt.setInt(2, w.getProductId());
@@ -34,7 +34,7 @@ public class WishlistDao {
 	public boolean getWishlist(int uid, int pid) {
 		boolean flag = false;
 		try {
-			String query = "select * from wishlist where iduser = ? and idproduct = ?";
+			String query = "select * from wishlists where iduser = ? and idproduct = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			psmt.setInt(2, pid);
@@ -52,7 +52,7 @@ public class WishlistDao {
 	public List<Wishlist> getListByUserId(int uid){
 		List<Wishlist> list = new ArrayList<Wishlist>();
 		try {
-			String query = "select * from wishlist where iduser = ?";
+			String query = "select * from wishlists where iduser = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			
@@ -72,7 +72,7 @@ public class WishlistDao {
 	}
 	public void deleteWishlist(int uid, int pid) {
 		try {
-			String query = "delete from wishlist where iduser = ? and idproduct = ?";
+			String query = "delete from wishlists where iduser = ? and idproduct = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			psmt.setInt(2, pid);

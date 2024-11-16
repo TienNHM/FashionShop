@@ -20,7 +20,7 @@ public class CartDao {
 	public boolean addToCart(Cart cart) {
 		boolean flag = false;
 		try {
-			String query = "insert into cart(uid, pid, quantity) values(?,?,?)";
+			String query = "insert into carts(uid, pid, quantity) values(?,?,?)";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, cart.getUserId());
 			psmt.setInt(2, cart.getProductId());
@@ -38,7 +38,7 @@ public class CartDao {
 	public List<Cart> getCartListByUserId(int uid) {
 		List<Cart> list = new ArrayList<Cart>();
 		try {
-			String query = "select * from cart where uid = ?";
+			String query = "select * from carts where uid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 
@@ -61,7 +61,7 @@ public class CartDao {
 	public int getQuantity(int uid, int pid) {
 		int qty = 0;
 		try {
-			String query = "select * from cart where uid = ? and pid = ?";
+			String query = "select * from carts where uid = ? and pid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			psmt.setInt(2, pid);
@@ -79,7 +79,7 @@ public class CartDao {
 	public int getQuantityById(int id) {
 		int qty = 0;
 		try {
-			String query = "select * from cart where id = ?";
+			String query = "select * from carts where id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, id);
 			ResultSet rs = psmt.executeQuery();
@@ -95,7 +95,7 @@ public class CartDao {
 	public void updateQuantity(int id, int qty) {
 
 		try {
-			String query = "update cart set quantity = ? where id = ?";
+			String query = "update carts set quantity = ? where id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, qty);
 			psmt.setInt(2, id);
@@ -109,7 +109,7 @@ public class CartDao {
 
 	public void removeProduct(int cid) {
 		try {
-			String query = "delete from cart where id = ?";
+			String query = "delete from carts where id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, cid);
 
@@ -121,7 +121,7 @@ public class CartDao {
 
 	public void removeAllProduct() {
 		try {
-			String query = "delete from cart";
+			String query = "delete from carts";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.executeUpdate();
 		} catch (Exception e) {
@@ -132,7 +132,7 @@ public class CartDao {
 	public int getIdByUserIdAndProductId(int uid, int pid) {
 		int cid = 0;
 		try {
-			String query = "select * from cart where uid = ? and pid = ?";
+			String query = "select * from carts where uid = ? and pid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			psmt.setInt(2, pid);
@@ -150,7 +150,7 @@ public class CartDao {
 	public int getCartCountByUserId(int uid) {
 		int count = 0;
 		try {
-			String query = "select count(*) from cart where uid=?";
+			String query = "select count(*) from carts where uid=?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 
@@ -166,7 +166,7 @@ public class CartDao {
 	public int getProductId(int cid) {
 		int pid = 0;
 		try {
-			String query = "select pid from cart where id=?";
+			String query = "select pid from carts where id=?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, cid);
 			ResultSet rs = psmt.executeQuery();

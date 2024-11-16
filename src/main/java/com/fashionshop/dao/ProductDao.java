@@ -19,7 +19,7 @@ public class ProductDao {
 	public boolean saveProduct(Product product) {
 		boolean flag = false;
 		try {
-			String query = "insert into product(name, description, price, quantity, discount, image, cid) values(?, ?, ?, ?, ?, ?, ?)";
+			String query = "insert into products(name, description, price, quantity, discount, image, cid) values(?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, product.getProductName());
 			psmt.setString(2, product.getProductDescription());
@@ -41,7 +41,7 @@ public class ProductDao {
 	public List<Product> getAllProducts() {
 		List<Product> list = new ArrayList<Product>();
 		try {
-			String query = "select * from product";
+			String query = "select * from products";
 			Statement statement = this.con.createStatement();
 
 			ResultSet rs = statement.executeQuery(query);
@@ -67,7 +67,7 @@ public class ProductDao {
 	public List<Product> getAllLatestProducts() {
 		List<Product> list = new ArrayList<Product>();
 		try {
-			String query = "select * from product order by pid desc";
+			String query = "select * from products order by pid desc";
 			Statement statement = this.con.createStatement();
 
 			ResultSet rs = statement.executeQuery(query);
@@ -93,7 +93,7 @@ public class ProductDao {
 	public Product getProductsByProductId(int pid) {
 		Product product = new Product();
 		try {
-			String query = "select * from product where pid = ?";
+			String query = "select * from products where pid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, pid);
 			ResultSet rs = psmt.executeQuery();
@@ -117,7 +117,7 @@ public class ProductDao {
 	public List<Product> getAllProductsByCategoryId(int catId) {
 		List<Product> list = new ArrayList<Product>();
 		try {
-			String query = "select * from product where cid = ?";
+			String query = "select * from products where cid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, catId);
 			ResultSet rs = psmt.executeQuery();
@@ -143,7 +143,7 @@ public class ProductDao {
 	public List<Product> getAllProductsBySearchKey(String search) {
 		List<Product> list = new ArrayList<Product>();
 		try {
-			String query = "select * from product where lower(name) like ? or lower(description) like ?";
+			String query = "select * from products where lower(name) like ? or lower(description) like ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			search = "%" + search + "%";
 			psmt.setString(1, search);
@@ -172,7 +172,7 @@ public class ProductDao {
 	public List<Product> getDiscountedProducts() {
 		List<Product> list = new ArrayList<Product>();
 		try {
-			String query = "select * from product where discount >= 30 order by discount desc";
+			String query = "select * from products where discount >= 30 order by discount desc";
 			Statement statement = this.con.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
@@ -197,7 +197,7 @@ public class ProductDao {
 	public void updateProduct(Product product) {
 		try {
 
-			String query = "update product set name=?, description=?, price=?, quantity=?, discount=?, image=? where pid=?";
+			String query = "update products set name=?, description=?, price=?, quantity=?, discount=?, image=? where pid=?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, product.getProductName());
 			psmt.setString(2, product.getProductDescription());
@@ -216,7 +216,7 @@ public class ProductDao {
 
 	public void updateQuantity(int id, int qty) {
 		try {
-			String query = "update product set quantity = ? where pid = ?";
+			String query = "update products set quantity = ? where pid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, qty);
 			psmt.setInt(2, id);
@@ -230,7 +230,7 @@ public class ProductDao {
 
 	public void deleteProduct(int pid) {
 		try {
-			String query = "delete from product where pid = ?";
+			String query = "delete from products where pid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, pid);
 			psmt.executeUpdate();
@@ -243,7 +243,7 @@ public class ProductDao {
 	public int productCount() {
 		int count = 0;
 		try {
-			String query = "select count(*) from product";
+			String query = "select count(*) from products";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			rs.next();
@@ -257,7 +257,7 @@ public class ProductDao {
 	public float getProductPriceById(int pid) {
 		float price = 0;
 		try {
-			String query = "select price, discount from product where pid = ?";
+			String query = "select price, discount from products where pid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, pid);
 			ResultSet rs = psmt.executeQuery();
@@ -276,7 +276,7 @@ public class ProductDao {
 	public int getProductQuantityById(int pid) {
 		int qty = 0;
 		try {
-			String query = "select quantity from product where pid = ?";
+			String query = "select quantity from products where pid = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, pid);
 			ResultSet rs = psmt.executeQuery();
