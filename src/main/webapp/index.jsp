@@ -7,6 +7,9 @@
 ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 List<Product> productList = productDao.getAllLatestProducts();
 List<Product> topDeals = productDao.getDiscountedProducts();
+User loggedUser = (User) session.getAttribute("activeUser");
+Admin loggedAdmin = (Admin) session.getAttribute("activeAdmin");
+String loggedInName = (loggedUser != null) ? loggedUser.getUserName() : (loggedAdmin != null) ? loggedAdmin.getName() : "Guest";
 %>
 <!DOCTYPE html>
 <html>
@@ -42,6 +45,14 @@ List<Product> topDeals = productDao.getDiscountedProducts();
 <body>
 	<!--navbar -->
 	<%@include file="Components/navbar.jsp"%>
+
+	<!-- welcome message -->
+	<div class="container-fluid px-3 py-3"
+		style="background-color: #f0fffe;">
+		<div class="container text-center">
+			<h4 class="display-4">Welcome <%= loggedInName %> to Fashion Shop</h4>
+		</div>
+	</div>
 
 	<!-- Category list -->
 	<div class="container-fluid px-3 py-3"

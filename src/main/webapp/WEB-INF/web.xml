@@ -178,4 +178,9 @@
 		<servlet-name>ChangePasswordServlet</servlet-name>
 		<url-pattern>/ChangePasswordServlet</url-pattern>
 	</servlet-mapping>
+
+	<!-- Thiết lập session config -->
+	<session-config>
+		<session-timeout>60</session-timeout> <!-- thời gian sống của session là 60 phút -->
+	</session-config>
 </web-app>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 
 import com.fashionshop.dao.AdminDao;
 import com.fashionshop.dao.UserDao;
@@ -41,13 +42,25 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				if (user != null) {
 					session.setAttribute("activeUser", user);
+					Cookie cookieIsLogged = new Cookie("is_logged", "true");
+					// Cookie activeUser = new Cookie("active_user", user.getUserName());
+					cookieIsLogged.setMaxAge(60 * 60 * 24 * 30); // 30 ngày 
+					// activeUser.setMaxAge(60 * 60 * 24 * 30); // 30 ngày
+					response.addCookie(cookieIsLogged);
+					// response.addCookie(activeUser);
+					LogData.saveLog("LoginServlet", request, user.getUserName() + " logged in successfully", "");
 					response.sendRedirect("index.jsp");
-					LogData.saveLog("LoginServlet", request, "User logged in successfully", "");
 				} else {
 					Message message = new Message("Invalid details! Try again!!", "error", "alert-danger");
 					session.setAttribute("message", message);
+					Cookie cookieIsLogged = new Cookie("is_logged", "false");
+					Cookie activeUser = new Cookie("active_user", "null");
+					cookieIsLogged.setMaxAge(60 * 60 * 24 * 30); // 30 ngày
+					activeUser.setMaxAge(60 * 60 * 24 * 30); // 30 ngày
+					response.addCookie(cookieIsLogged);
+					response.addCookie(activeUser);
+					LogData.saveLog("LoginServlet", request, "", "User is null! Try again!!");
 					response.sendRedirect("login.jsp");
-					LogData.saveLog("LoginServlet", request, "", "Invalid details! Try again!!");
 					return;
 				}
 
@@ -66,19 +79,32 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				if (admin != null) {
 					session.setAttribute("activeAdmin", admin);
+					Cookie cookieIsLogged = new Cookie("is_logged", "true");
+					//Cookie activeAdmin = new Cookie("active_admin", admin.getName());
+					cookieIsLogged.setMaxAge(60 * 60 * 24 * 30); // 30 ngày
+					//activeAdmin.setMaxAge(60 * 60 * 24 * 30); // 30 ngày
+					response.addCookie(cookieIsLogged);
+					//response.addCookie(activeAdmin);
+					LogData.saveLog("LoginServlet", request, "Admin " + admin.getName() + " logged in successfully", "");
 					response.sendRedirect("admin.jsp");
-					LogData.saveLog("LoginServlet", request, "Admin logged in successfully", "");
 				} else {
 					Message message = new Message("Invalid details! Try again!!", "error", "alert-danger");
 					session.setAttribute("message", message);
+					Cookie cookieIsLogged = new Cookie("is_logged", "false");
+					Cookie activeAdmin = new Cookie("active_admin", "null");
+					cookieIsLogged.setMaxAge(60 * 60 * 24 * 30); // 30 ngày
+					activeAdmin.setMaxAge(60 * 60 * 24 * 30); // 30 ngày
+					response.addCookie(cookieIsLogged);
+					response.addCookie(activeAdmin);
+					LogData.saveLog("LoginServlet", request, "", "Admin is null! Try again!!");
 					response.sendRedirect("adminlogin.jsp");
-					LogData.saveLog("LoginServlet", request, "", "Invalid details! Try again!!");
 					return;
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
 				LogData.saveLog("LoginServlet", request, "", e.getMessage());
+				e.printStackTrace();
 			}
+			LogData.saveLog("LoginServlet", request, "", login + " is not a valid login type! Try again!!");
 		}
 	}
 

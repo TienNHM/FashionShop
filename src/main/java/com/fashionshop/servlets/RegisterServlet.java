@@ -37,8 +37,7 @@ public class RegisterServlet extends HttpServlet {
 			String userPincode = request.getParameter("pincode");
 			String userState = request.getParameter("state");
 
-			User user = new User(userName, userEmail, userPassword, userPhone, userGender, userAddress, userCity,
-					userPincode, userState);
+			User user = new User(userName, userEmail, userPassword, userPhone, userGender, userAddress, userCity, userPincode, userState);
 			UserDao userDao = new UserDao(ConnectionProvider.getConnection());
 			boolean flag = userDao.saveUser(user);
 
@@ -47,14 +46,19 @@ public class RegisterServlet extends HttpServlet {
 			if (flag) {
 				message = new Message("Registration Successful !!", "success", "alert-success");
 				MailMessenger.successfullyRegister(userName, userEmail);
+				String messageText = String.format("User %s registered successfully", userName);
+				LogData.saveLog("RegisterServlet", request, messageText, "");
+				session.setAttribute("message", message);
+				response.sendRedirect("login.jsp");
+				return;
 			} else {
 				message = new Message("Something went wrong! Try again!!", "error", "alert-danger");
+				String messageText = String.format("User %s registration failed. Try again!!", userName);
+				LogData.saveLog("RegisterServlet", request, "", messageText);
+				session.setAttribute("message", message);
+				response.sendRedirect("register.jsp");
+				return;
 			}
-			session.setAttribute("message", message);
-			response.sendRedirect("register.jsp");
-			LogData.saveLog("RegisterServlet", request, message.getMessage(), "");
-			return;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			LogData.saveLog("RegisterServlet", request, "", e.getMessage());

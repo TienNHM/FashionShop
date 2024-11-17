@@ -20,8 +20,8 @@ public class Mail {
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.port", "587");
 
-        String emailId = ""; 	     // admin/company mail-id
-        String password = "";		// generated password
+        String emailId = "2thuancr03@gmail.com"; 	     // admin/company mail-id
+        String password = "eifm nvmj httv mnsa";		// generated password
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -36,7 +36,7 @@ public class Mail {
             message.setFrom(new InternetAddress(emailId));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipientMailId));
             message.setSubject(subject);
-            message.setContent(body, "text/html");
+            message.setContent(body, "text/html; charset=UTF-8");
 
             Transport.send(message);
             //System.out.println("Message Sent Successfully!");

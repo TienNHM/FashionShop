@@ -28,24 +28,24 @@ public class LogData {
 
 			String fullUrl = url + "?" + data;
 
-			// Call API to save log data (Java servlet)
-			URL urlObj = new URL(fullUrl);
-			HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/json");
-			conn.setDoOutput(true);
-			OutputStream os = conn.getOutputStream();
-			os.write(data.getBytes());
-			os.flush();
-			os.close();
+			// // Call API to save log data (Java servlet)
+			// URL urlObj = new URL(fullUrl);
+			// HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+			// conn.setRequestMethod("POST");
+			// conn.setRequestProperty("Content-Type", "application/json");
+			// conn.setDoOutput(true);
+			// OutputStream os = conn.getOutputStream();
+			// os.write(data.getBytes());
+			// os.flush();
+			// os.close();
 
-			// Get response from API
-			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-			String output;
-			while ((output = br.readLine()) != null) {
-				System.out.println(output);
-			}
-			conn.disconnect();
+			// // Get response from API
+			// BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+			// String output;
+			// while ((output = br.readLine()) != null) {
+			// 	System.out.println(output);
+			// }
+			// conn.disconnect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
